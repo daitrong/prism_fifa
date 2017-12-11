@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Fifa.Views.TeamPage">
+    <StackLayout>
+        <Label Text="Latest result" FontAttributes="Bold" FontSize="17" Margin="10,0,0,0"/>
+        <Label Text="{Binding TeamDetail.LatestMatch.Date ,StringFormat='{0:dd-MM-yyyyy HH:mm}'}" Margin="10" BackgroundColor="LightGray" HorizontalTextAlignment="Center"/>
+        <Label Text="{Binding TeamDetail.LatestMatch.CompetitionEn}" TextColor="Black" HorizontalTextAlignment="Center" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <StackLayout>
+                <Image Source="{Binding TeamDetail.LatestMatch.HomeLogoImage}" WidthRequest="40" HeightRequest="40" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="{Binding TeamDetail.LatestMatch.HomeTeamEn}" HorizontalTextAlignment="Center" />
+            </StackLayout>
+            <Label Text="{Binding TeamDetail.LatestMatch.HomeGoals}" HorizontalTextAlignment="End" FontSize="Medium" Grid.Column="1" VerticalTextAlignment="Center"/>
+            <Label Text=":"  FontSize="Medium" Grid.Column="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+            <Label Text="{Binding TeamDetail.LatestMatch.AwayGoals}" HorizontalTextAlignment="Start" FontSize="Medium" Grid.Column="3" VerticalTextAlignment="Center"/>
+            <StackLayout Grid.Column="4">
+                <Image Source="{Binding TeamDetail.LatestMatch.AwayLogoImage}" WidthRequest="40" HeightRequest="40" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="{Binding TeamDetail.LatestMatch.AwayTeamEn}" HorizontalTextAlignment="Center" />
+                
+            </StackLayout>
+        </Grid>
+        <Label Text="Next match" FontAttributes="Bold" FontSize="17" Margin="10,20,0,0"/>
+        <Label Text="{Binding TeamDetail.NextMatch.Date ,StringFormat='{0:dd-MM-yyyy HH:mm}'}" Margin="10" BackgroundColor="LightGray" HorizontalTextAlignment="Center"/>
+        <Label Text="{Binding TeamDetail.NextMatch.CompetitionEn}" TextColor="Black" HorizontalTextAlignment="Center" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <StackLayout>
+                <Image Source="{Binding TeamDetail.NextMatch.HomeLogoImage}" WidthRequest="40" HeightRequest="40" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="{Binding TeamDetail.NextMatch.HomeTeamEn}" HorizontalTextAlignment="Start" />
+            </StackLayout>
+            <Label Text="{Binding TeamDetail.NextMatch.HomeGoals}" HorizontalTextAlignment="End" FontSize="Medium" Grid.Column="1" VerticalTextAlignment="Center"/>
+            <Label Text=":" HorizontalTextAlignment="Center" FontSize="Medium" Grid.Column="2" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
+            <Label Text="{Binding TeamDetail.NextMatch.AwayGoals}" HorizontalTextAlignment="Start" FontSize="Medium" Grid.Column="3" VerticalTextAlignment="Center" />
+            <StackLayout Grid.Column="4">
+                <Image Source="{Binding TeamDetail.NextMatch.AwayLogoImage}" WidthRequest="40" HeightRequest="40" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="{Binding TeamDetail.NextMatch.AwayTeamEn}" HorizontalTextAlignment="Center" />
+            </StackLayout>
+        </Grid>
+
+        <Label Text="Standings" HorizontalTextAlignment="Center" FontAttributes="Bold" BackgroundColor="LightGray" Margin="0,10,0,0"/>
+        <StackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Text="Rnk" Grid.Column="0"/>
+            <Label Text="Team" Grid.ColumnSpan="4" Grid.Column="1"/>
+            <Label Text="MP" Grid.Column="5"/>
+            <Label Text="+/-" Grid.Column="6"/>
+            <Label Text="Pts" Grid.Column="7"/>
+        </Grid>
+        </StackLayout>
+        
+        <ListView ItemsSource="{Binding StandingDetail}" Margin="0,20,0,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <!--<StackLayout Orientation="Horizontal">-->
+                            <Label Text="{Binding Rank}" Grid.Column="0" VerticalTextAlignment="Center"/>
+                            <StackLayout Orientation="Horizontal" Grid.Column="1" Grid.ColumnSpan="4" >
+                                <Image Source="{Binding LogoImage}" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Label Text="{Binding TeamEn}" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            </StackLayout>
+                            <Label Text="{Binding Matches}" Grid.Column="5" VerticalTextAlignment="Center"/>
+                            <Label Text="{Binding GoalsAgainst}" Grid.Column="6" VerticalTextAlignment="Center"/>
+                            <Label Text="{Binding Points}" Grid.Column="7" VerticalTextAlignment="Center"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+    </StackLayout>
+</ContentPage>

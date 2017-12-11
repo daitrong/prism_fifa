@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:Views="clr-namespace:Fifa.Views;assembly=Fifa"
+             x:Class="Fifa.Views.MatchPage"
+              x:Name ="Root">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Views:TeamSelector x:Key="TeamSelector">
+
+                <Views:TeamSelector.HomeTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding PersonShort}" TextColor="Blue" Grid.Column="0" HorizontalTextAlignment="End" Grid.ColumnSpan="4"/>
+                                <Label Text="{Binding ActionMinute}" TextColor="Blue" Grid.Column="4" HorizontalTextAlignment="End" FontSize="Small"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </Views:TeamSelector.HomeTemplate>
+
+                <Views:TeamSelector.AwayTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding PersonShort}" TextColor="Red" Grid.Column="6" HorizontalTextAlignment="Start" Grid.ColumnSpan="4"/>
+                                <Label Text="{Binding ActionMinute}" TextColor="Red" Grid.Column="5" HorizontalTextAlignment="Start" FontSize="Small"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </Views:TeamSelector.AwayTemplate>
+
+                <Views:TeamSelector.StartTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="KICK-OFF *** KICK-OFF" HorizontalTextAlignment="Center"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </Views:TeamSelector.StartTemplate>
+
+                <Views:TeamSelector.MidTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="HAFT-TIME *** HAFT-TIME" HorizontalTextAlignment="Center"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </Views:TeamSelector.MidTemplate>
+
+                <Views:TeamSelector.EndTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="FULL-TIME *** FULL-TIME" HorizontalTextAlignment="Center"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </Views:TeamSelector.EndTemplate>
+            </Views:TeamSelector>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout >
+        <Label Text="{Binding MatchDetail.Date ,StringFormat='{0:dd-MM-yyyy}'}" HorizontalOptions="Center" />
+        <Label Text="{Binding MatchDetail.CompetitionEn}" FontSize="20" HorizontalTextAlignment="Center" FontAttributes="Bold" Margin="10"/>
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition  Width="*"/>
+                <ColumnDefinition  Width="*"/>
+                <ColumnDefinition  Width="*"/>
+                <ColumnDefinition  Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <StackLayout>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BindingContext.TeamCommand, Source={x:Reference Root}}"
+                                          CommandParameter="{Binding MatchDetail.HomeTeamID}" />
+                </StackLayout.GestureRecognizers>
+                <Image Source="{Binding MatchDetail.HomeLogoImage}" WidthRequest="40" HeightRequest="40" HorizontalOptions="Center"/>
+                <Label Text="{Binding MatchDetail.HomeTeamEn}" HorizontalTextAlignment="Center"/>
+            </StackLayout>
+            
+            <Label Text="{Binding MatchDetail.HomeGoals}" HorizontalOptions="End" FontSize="40" Grid.Column="1"/>
+            <Label Text=":" HorizontalOptions="Center" FontSize="40" Grid.Column="2"/>
+            <Label Text="{Binding MatchDetail.AwayGoals}" HorizontalOptions="Start" FontSize="40" Grid.Column="3"/>
+            
+            <StackLayout Grid.Column="4">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BindingContext.TeamCommand, Source={x:Reference Root}}"
+                                          CommandParameter="{Binding MatchDetail.AwayTeamID}" />
+                </StackLayout.GestureRecognizers>
+                <Image Source="{Binding MatchDetail.AwayLogoImage}"  WidthRequest="40" HeightRequest="40" HorizontalOptions="Center"/>
+                <Label Text="{Binding MatchDetail.AwayTeamEn}"  HorizontalTextAlignment="Center"/>
+            </StackLayout>
+        </Grid>
+        <Label Text="{Binding MatchDetail.Stadium}" HorizontalOptions="Center" FontSize="Medium" Margin="10"/>
+        <Label BackgroundColor="Gray" HeightRequest="3" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ListView ItemsSource="{Binding HomeGoals}" Grid.Column="0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding HomeGoals.PersonShort}" HorizontalTextAlignment="End"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+        <ListView ItemsSource="{Binding AwayGoals}" Grid.Column="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="{Binding AwayGoals.PersonShort}" HorizontalTextAlignment="Start"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </Grid>
+        
+        <Label Margin="0,6,0,6" Text="DETAIL MATCH" BackgroundColor="LightGray" />
+        <ListView ItemsSource="{Binding MatchDetail.Actions}" ItemTemplate="{StaticResource TeamSelector}">
+            <!--<ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding PersonShort}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>-->
+        </ListView>
+    </StackLayout>
+</ContentPage>
